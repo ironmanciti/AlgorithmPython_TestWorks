@@ -1,8 +1,6 @@
-from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import *
 import sys, os
 import sqlite3
-from PIL import Image
 
 con = sqlite3.connect('employees.db')
 cur = con.cursor()
@@ -126,20 +124,13 @@ class AddEmployee(QWidget):
         self.main = Main()
     
     def mainDesign(self):
-        #--- Window Style Sheet -------
-        self.setStyleSheet("background-color:white; font-size:12pt;")
-        #--- Top Layer Widgets ----------------
-        self.title = QLabel("직원 추가")
-        self.title.setStyleSheet("font-size: 24pt;")
-        self.sampleImg = QLabel()
-        self.sampleImg.setPixmap(QPixmap('images/sample.png'))
+        
         #--- Bottom Layer Widgets -------------
         self.nameLbl = QLabel("성 명: ")
         self.name = QLineEdit()
         self.phoneLbl = QLabel("전화번호: ")
         self.phone = QLineEdit()
         self.addButton = QPushButton("추 가")
-        self.addButton.setStyleSheet("background-color: orange;font-size: 10pt")
         self.addButton.clicked.connect(self.addEmployee)
     
     def layouts(self):
@@ -150,12 +141,6 @@ class AddEmployee(QWidget):
         #---- Adding child to main Layouts -------
         self.mainLayout.addLayout(self.topLayout, 40)
         self.mainLayout.addLayout(self.bottomLayout, 60)
-        #--- Top Layout에 widget 추가 --------
-        self.topLayout.addStretch()
-        self.topLayout.addWidget(self.title)
-        self.topLayout.addWidget(self.sampleImg)
-        self.topLayout.addStretch()
-        self.topLayout.setContentsMargins(100, 20, 10, 30) #l,t,r,b
         #--- Bottom Layout에 widget 추가 -------
         self.bottomLayout.addRow(self.nameLbl, self.name)
         self.bottomLayout.addRow(self.phoneLbl, self.phone)
